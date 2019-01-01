@@ -9,11 +9,16 @@
 
 namespace Geno3D
 {
-    ObjScene::ObjScene(std::string filename, float posy, float posz) : camPos(posz, posy) {
+    ObjScene::ObjScene(std::string filename, float posy, float posz, std::string tex) : camPos(posz, posy) {
         std::ifstream fst;
         fst.open(filename);
         object.load(fst);
         fst.close();
+        if (tex.size() > 0) {
+            sf::Texture t;
+            t.loadFromFile(tex);
+            object.loadTexture(t);
+        }
     }
 
     void ObjScene::init(sf::RenderWindow *window, sf::Vector2i dims) {
@@ -38,29 +43,18 @@ namespace Geno3D
 
     void ObjScene::update(float dt) {
         Eigen::Matrix3f r;
-        r = Eigen::AngleAxisf(0.003, Eigen::Vector3f::UnitY());
+        r = Eigen::AngleAxisf(0.006, Eigen::Vector3f::UnitY());
         object.transform(r);
     }
     
     void ObjScene::draw(float in) {
         window->clear();
-        projected = camera->project(object.verts);
-        object.sortFaces(projected);
-        Eigen::VectorXf lighting = light->vertexLighting(object.normals);
-        sf::VertexArray shape(sf::Triangles, object.faces.size() * 3);
-        int j = 0;
-        for (auto face : object.faces) {
-            for (int i=0; i<3; ++i) {
-                int f = face(i) - 1;
-                auto vec = projected.col(f);
-                shape[j].position = sf::Vector2f(vec(0), windowSize.y - vec(1));
-                float lightStrength = lighting(f) * 255;
-                shape[j].color = sf::Color(lightStrength, lightStrength, lightStrength);
-                ++j;
-            }
+        auto shape = object.render(light, camera, windowSize.y);
+        if (object.textured) {
+            window->draw(shape, &object.texture);
+        } else {
+            window->draw(shape);
         }
-        window->draw(shape);
         window->display();
-        
     }
 }
