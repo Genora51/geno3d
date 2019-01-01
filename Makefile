@@ -30,5 +30,8 @@ clean:
 debug: CXXFLAGS += -DDEBUG -g
 debug: $(TARGETDIR)/$(TARGET)
 
+fast: CXXFLAGS += -O2
+fast: $(TARGETDIR)/$(TARGET)
+
 
 .PHONY: clean debug

@@ -3,8 +3,15 @@
 
 int main(int argc, char const *argv[])
 {
-    auto game = Geno3D::Engine(500, 500, "Geno3D");
-    game.scene = new Geno3D::ObjScene(argv[1], 200, -600);
+    Geno3D::Engine game(800, 450, "Geno3D");
+    Geno3D::ObjScene *scene;
+    if (argc > 2) {
+        scene = new Geno3D::ObjScene(argv[1], 15, -50, argv[2]);
+    }
+    else {
+        scene = new Geno3D::ObjScene(argv[1], 15, -50);
+    }
+    game.scene = scene;
     game.run();
     return 0;
 }
