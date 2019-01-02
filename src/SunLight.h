@@ -10,5 +10,6 @@ namespace Geno3D
         SunLight(Eigen::Vector3f direction);
         Eigen::Vector3f direction;
         Eigen::VectorXf vertexLighting(Eigen::Matrix3Xf normals) override;
+        ~SunLight() {}
     };
 }

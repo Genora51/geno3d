@@ -5,6 +5,7 @@
 #include <eigen3/Eigen/Dense>
 #include <vector>
 #include <string>
+#include <memory>
 #include "Light.h"
 #include "Camera.h"
 
@@ -16,7 +17,11 @@ namespace Geno3D
         void load(std::string str);
         void load(std::istream& stream);
         void sortFaces(const Eigen::Matrix3Xf& projected);
-        sf::VertexArray render(Light *light, Camera *camera, int winHeight);
+        sf::VertexArray render(
+            std::vector<std::unique_ptr<Light>>& light,
+            std::shared_ptr<Camera> camera,
+            int winHeight
+        );
         void transform(Eigen::Matrix3f t);
         void calcNormals();
         void loadTexture(sf::Texture texture);

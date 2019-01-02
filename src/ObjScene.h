@@ -3,6 +3,7 @@
 #include <string>
 #include <SFML/Graphics.hpp>
 #include <eigen3/Eigen/Dense>
+#include <vector>
 #include "Scene.h"
 #include "Object.h"
 #include "Camera.h"
@@ -17,11 +18,12 @@ namespace Geno3D
         void draw(float in) override;
         void update(float dt) override;
         void handleInput() override;
+        ~ObjScene() {}
     private:
         sf::RenderWindow *window;
         Object object;
-        Camera *camera;
-        Light *light;
+        std::shared_ptr<Camera> camera;
+        std::vector<std::unique_ptr<Light>> light;
         sf::Vector2i windowSize;
         sf::Vector2f camPos;
     };

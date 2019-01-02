@@ -15,5 +15,6 @@ namespace Geno3D
         Eigen::Vector3f orientation;
         Eigen::Vector3f displaySurface;
         virtual Eigen::Matrix3Xf project(const Eigen::Matrix3Xf &points) = 0;
+        virtual ~Camera() {};
     };
 }

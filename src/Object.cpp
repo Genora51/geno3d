@@ -1,4 +1,5 @@
 #include <sstream>
+#include <numeric>
 #include "Object.h"
 #include "vecsort.h"
 
@@ -80,10 +81,13 @@ namespace Geno3D
         normals.colwise().normalize();
     }
 
-    sf::VertexArray Object::render(Light *light, Camera *camera, int winHeight) {
+    sf::VertexArray Object::render(std::vector<std::unique_ptr<Light>>& light, std::shared_ptr<Camera> camera, int winHeight) {
         Eigen::Matrix3Xf projected = camera->project(verts);
         sortFaces(projected);
-        Eigen::VectorXf lighting = light->vertexLighting(normals);
+        Eigen::VectorXf lighting = Eigen::VectorXf::Zero(normals.cols());
+        for (auto& lamp : light) {
+            lighting += lamp->vertexLighting(normals);
+        }
         sf::VertexArray shape(sf::Triangles, faces.size() * 3);
         int j = 0;
         for (int fn=0; fn<faces.size(); ++fn) {

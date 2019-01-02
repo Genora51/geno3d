@@ -9,7 +9,8 @@
 
 namespace Geno3D
 {
-    ObjScene::ObjScene(std::string filename, float posy, float posz, std::string tex) : camPos(posz, posy) {
+    ObjScene::ObjScene(std::string filename, float posy, float posz, std::string tex)
+    : camera(new PerspCamera), camPos(posz, posy) {
         std::ifstream fst;
         fst.open(filename);
         object.load(fst);
@@ -24,12 +25,11 @@ namespace Geno3D
     void ObjScene::init(sf::RenderWindow *window, sf::Vector2i dims) {
         windowSize = dims;
         this->window = window;
-        camera = new PerspCamera;
         camera->displaySurface << windowSize.x / 2, windowSize.y / 2, windowSize.y / 2;
         camera->position(2) = camPos.x;
         camera->position(1) = camPos.y;
         Eigen::Vector3f lightDir(2, -2, 1);
-        light = new SunLight(lightDir);
+        light.emplace_back(new SunLight(lightDir));
     }
 
     void ObjScene::handleInput() {
