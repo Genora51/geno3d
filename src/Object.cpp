@@ -88,6 +88,7 @@ namespace Geno3D
         for (auto& lamp : light) {
             lighting += lamp->vertexLighting(normals);
         }
+        lighting = lighting.cwiseMin(1);
         sf::VertexArray shape(sf::Triangles, faces.size() * 3);
         int j = 0;
         for (int fn=0; fn<faces.size(); ++fn) {

@@ -9,7 +9,7 @@ namespace Geno3D
     public:
         SunLight(Eigen::Vector3f direction);
         Eigen::Vector3f direction;
-        Eigen::VectorXf vertexLighting(Eigen::Matrix3Xf normals) override;
+        Eigen::VectorXf vertexLighting(const Eigen::Matrix3Xf& normals) override;
         ~SunLight() {}
     };
 }

@@ -6,7 +6,7 @@ namespace Geno3D
 {
     class Light {
     public:
-        virtual Eigen::VectorXf vertexLighting(Eigen::Matrix3Xf normals) = 0;
+        virtual Eigen::VectorXf vertexLighting(const Eigen::Matrix3Xf& normals) = 0;
         virtual ~Light() {};
     };
 }

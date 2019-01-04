@@ -7,7 +7,7 @@ namespace Geno3D
         this->direction.normalize();
     }
 
-    Eigen::VectorXf SunLight::vertexLighting(Eigen::Matrix3Xf normals)
+    Eigen::VectorXf SunLight::vertexLighting(const Eigen::Matrix3Xf& normals)
     {
         Eigen::VectorXf unbounded = normals.transpose() * direction;
         return unbounded.cwiseMax(0);
