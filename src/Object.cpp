@@ -82,11 +82,11 @@ namespace Geno3D
         normals.colwise().normalize();
     }
 
-    sf::VertexArray Object::render(std::vector<std::unique_ptr<Light>>& light, const std::shared_ptr<Camera>& camera, int winHeight) {
+    sf::VertexArray Object::render(std::vector<std::unique_ptr<Light>>& lights, const std::shared_ptr<Camera>& camera, int winHeight) {
         Eigen::Matrix3Xf projected = camera->project(verts);
         sortFaces(projected);
         Eigen::VectorXf lighting = Eigen::VectorXf::Zero(normals.cols());
-        for (auto& lamp : light) {
+        for (auto& lamp : lights) {
             lighting += lamp->vertexLighting(normals);
         }
         lighting = lighting.cwiseMin(1);

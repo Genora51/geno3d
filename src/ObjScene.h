@@ -23,7 +23,7 @@ namespace Geno3D
         sf::RenderWindow *window;
         Object object;
         std::shared_ptr<Camera> camera;
-        std::vector<std::unique_ptr<Light>> light;
+        std::vector<std::unique_ptr<Light>> lights;
         sf::Vector2i windowSize;
         sf::Vector2f camPos;
     };

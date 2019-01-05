@@ -18,7 +18,7 @@ namespace Geno3D
         void load(std::string str);
         void load(std::istream& stream);
         sf::VertexArray render(
-            std::vector<std::unique_ptr<Light>>& light,
+            std::vector<std::unique_ptr<Light>>& lights,
             const std::shared_ptr<Camera>& camera,
             int winHeight
         );
