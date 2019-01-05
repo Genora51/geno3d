@@ -2,6 +2,7 @@
 #include <numeric>
 #include "Object.h"
 #include "vecsort.h"
+#include "Transformation.h"
 
 namespace Geno3D
 {
@@ -58,9 +59,9 @@ namespace Geno3D
         }, faces, texCoords);
     }
 
-    void Object::transform(Eigen::Matrix3f t) {
-        verts = t * verts;
-        normals = t * normals / t.determinant();
+    void Object::transform(const Transformation& t) {
+        verts = t.apply(verts);
+        normals = t.apply(normals) / t.determinant();
     }
 
     void Object::calcNormals() {
@@ -81,7 +82,7 @@ namespace Geno3D
         normals.colwise().normalize();
     }
 
-    sf::VertexArray Object::render(std::vector<std::unique_ptr<Light>>& light, std::shared_ptr<Camera> camera, int winHeight) {
+    sf::VertexArray Object::render(std::vector<std::unique_ptr<Light>>& light, const std::shared_ptr<Camera>& camera, int winHeight) {
         Eigen::Matrix3Xf projected = camera->project(verts);
         sortFaces(projected);
         Eigen::VectorXf lighting = Eigen::VectorXf::Zero(normals.cols());
@@ -115,5 +116,23 @@ namespace Geno3D
             uvTexMap.push_back(sf::Vector2f(uv.x * ts.x, (1-uv.y) * ts.y));
         }
         textured = true;
+    }
+
+    void Object::translate(float x, float y, float z) {
+        Eigen::Vector3f t(x, y, z);
+        verts.colwise() += t;
+    }
+
+    void Object::rotate(float x, float y, float z) {
+        Eigen::Matrix3f r;
+        r = Eigen::AngleAxisf(x, Eigen::Vector3f::UnitX())
+          * Eigen::AngleAxisf(y, Eigen::Vector3f::UnitY())
+          * Eigen::AngleAxisf(z, Eigen::Vector3f::UnitZ());
+        verts = r * verts;
+        normals = r * normals;
+    }
+
+    void Object::scale(float m) {
+        verts *= m;
     }
 }

@@ -8,23 +8,31 @@
 #include <memory>
 #include "Light.h"
 #include "Camera.h"
+#include "Transformable.h"
 
 namespace Geno3D
 {
-    class Object {
+    class Object : public Transformable {
     public:
         Object() : textured(false) {};
         void load(std::string str);
         void load(std::istream& stream);
-        void sortFaces(const Eigen::Matrix3Xf& projected);
         sf::VertexArray render(
             std::vector<std::unique_ptr<Light>>& light,
-            std::shared_ptr<Camera> camera,
+            const std::shared_ptr<Camera>& camera,
             int winHeight
         );
-        void transform(Eigen::Matrix3f t);
-        void calcNormals();
         void loadTexture(sf::Texture texture);
+        sf::Texture getTexture() { return texture; }
+        bool isTextured() { return textured; }
+        // Transformable
+        void translate(float x, float y, float z) override;
+        void scale(float m) override;
+        void rotate(float x, float y, float z) override;
+        void transform(const Transformation& t) override;
+    private:
+        void sortFaces(const Eigen::Matrix3Xf& projected);
+        void calcNormals();
         sf::Texture texture;
         bool textured;
         Eigen::Matrix3Xf verts;

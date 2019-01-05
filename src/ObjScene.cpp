@@ -25,9 +25,8 @@ namespace Geno3D
     void ObjScene::init(sf::RenderWindow *window, sf::Vector2i dims) {
         windowSize = dims;
         this->window = window;
-        camera->displaySurface << windowSize.x / 2, windowSize.y / 2, windowSize.y / 2;
-        camera->position(2) = camPos.x;
-        camera->position(1) = camPos.y;
+        camera->setSurface(windowSize.x / 2, windowSize.y / 2, windowSize.y / 2);
+        camera->setPosition(0, camPos.y, camPos.x);
         Eigen::Vector3f lightDir(2, -2, 1);
         light.emplace_back(new SunLight(lightDir));
     }
@@ -42,16 +41,15 @@ namespace Geno3D
     }
 
     void ObjScene::update(float dt) {
-        Eigen::Matrix3f r;
-        r = Eigen::AngleAxisf(0.006, Eigen::Vector3f::UnitY());
-        object.transform(r);
+        object.rotate(0, 0.006, 0);
     }
     
     void ObjScene::draw(float in) {
         window->clear();
         auto shape = object.render(light, camera, windowSize.y);
-        if (object.textured) {
-            window->draw(shape, &object.texture);
+        if (object.isTextured()) {
+            sf::Texture tex(object.getTexture());
+            window->draw(shape, &tex);
         } else {
             window->draw(shape);
         }
