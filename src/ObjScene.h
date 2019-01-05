@@ -13,7 +13,8 @@ namespace Geno3D
 {
     class ObjScene : public Scene {
     public:
-        ObjScene(std::string filename, float posy, float posz, std::string tex="");
+        ObjScene(std::string filename, float posy, float posz, std::string tex);
+        ObjScene(std::string filename, float posy, float posz);
         void init(sf::RenderWindow *window, sf::Vector2i dims) override;
         void draw(float in) override;
         void update(float dt) override;
@@ -25,6 +26,5 @@ namespace Geno3D
         std::shared_ptr<Camera> camera;
         std::vector<std::unique_ptr<Light>> lights;
         sf::Vector2i windowSize;
-        sf::Vector2f camPos;
     };
 }

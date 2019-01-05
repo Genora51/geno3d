@@ -10,23 +10,26 @@
 namespace Geno3D
 {
     ObjScene::ObjScene(std::string filename, float posy, float posz, std::string tex)
-    : camera(new PerspCamera), camPos(posz, posy) {
+    : ObjScene(filename, posy, posz) {
+        sf::Texture t;
+        t.loadFromFile(tex);
+        object.loadTexture(t);
+    }
+
+    ObjScene::ObjScene(std::string filename, float posy, float posz)
+    : camera(new PerspCamera) {
         std::ifstream fst;
         fst.open(filename);
         object.load(fst);
         fst.close();
-        if (tex.size() > 0) {
+        camera->setPosition(0, posy, posz);
             sf::Texture t;
-            t.loadFromFile(tex);
-            object.loadTexture(t);
-        }
     }
 
     void ObjScene::init(sf::RenderWindow *window, sf::Vector2i dims) {
         windowSize = dims;
         this->window = window;
         camera->setSurface(windowSize.x / 2, windowSize.y / 2, windowSize.y / 2);
-        camera->setPosition(0, camPos.y, camPos.x);
         Eigen::Vector3f lightDir(2, -2, 1);
         lights.emplace_back(new SunLight(lightDir));
     }
@@ -43,7 +46,7 @@ namespace Geno3D
     void ObjScene::update(float dt) {
         object.rotate(0, 0.006, 0);
     }
-    
+
     void ObjScene::draw(float in) {
         window->clear();
         auto shape = object.render(lights, camera, windowSize.y);
