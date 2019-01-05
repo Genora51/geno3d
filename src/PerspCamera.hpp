@@ -2,13 +2,13 @@
 
 #include <eigen3/Eigen/Dense>
 
-#include "Camera.h"
+#include "Camera.hpp"
 
 namespace Geno3D
 {
-    class OrthCamera : public Camera {
+    class PerspCamera : public Camera {
     public:
         Eigen::Matrix3Xf project(const Eigen::Matrix3Xf &points) override;
-        ~OrthCamera() {}
+        ~PerspCamera() {}
     };
 }

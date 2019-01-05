@@ -3,9 +3,9 @@
 #include <iostream>
 #include <algorithm>
 #include <vector>
-#include "ObjScene.h"
-#include "PerspCamera.h"
-#include "SunLight.h"
+#include "ObjScene.hpp"
+#include "PerspCamera.hpp"
+#include "SunLight.hpp"
 
 namespace Geno3D
 {
@@ -23,7 +23,6 @@ namespace Geno3D
         object.load(fst);
         fst.close();
         camera->setPosition(0, posy, posz);
-            sf::Texture t;
     }
 
     void ObjScene::init(sf::RenderWindow *window, sf::Vector2i dims) {

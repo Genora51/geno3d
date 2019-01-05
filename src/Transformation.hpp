@@ -1,7 +1,7 @@
 #pragma once
 
 #include <eigen3/Eigen/Dense>
-#include "Transformable.h"
+#include "Transformable.hpp"
 
 namespace Geno3D
 {

@@ -1,5 +1,5 @@
 #include <cmath>
-#include "PerspCamera.h"
+#include "PerspCamera.hpp"
 
 
 namespace Geno3D

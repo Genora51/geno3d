@@ -4,10 +4,10 @@
 #include <SFML/Graphics.hpp>
 #include <eigen3/Eigen/Dense>
 #include <vector>
-#include "Scene.h"
-#include "Object.h"
-#include "Camera.h"
-#include "Light.h"
+#include "Scene.hpp"
+#include "Object.hpp"
+#include "Camera.hpp"
+#include "Light.hpp"
 
 namespace Geno3D
 {

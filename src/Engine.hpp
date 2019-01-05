@@ -3,7 +3,7 @@
 #include <string>
 #include <SFML/Graphics.hpp>
 #include <memory>
-#include "Scene.h"
+#include "Scene.hpp"
 
 namespace Geno3D
 {

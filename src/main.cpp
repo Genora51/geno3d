@@ -1,6 +1,6 @@
 #include <memory>
-#include "Engine.h"
-#include "ObjScene.h"
+#include "Engine.hpp"
+#include "ObjScene.hpp"
 
 int main(int argc, char const *argv[])
 {

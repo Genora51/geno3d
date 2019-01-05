@@ -1,8 +1,8 @@
 #include <sstream>
 #include <numeric>
-#include "Object.h"
-#include "vecsort.h"
-#include "Transformation.h"
+#include "Object.hpp"
+#include "vecsort.hpp"
+#include "Transformation.hpp"
 
 namespace Geno3D
 {

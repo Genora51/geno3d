@@ -1,5 +1,5 @@
-#include "Camera.h"
-#include "Transformation.h"
+#include "Camera.hpp"
+#include "Transformation.hpp"
 
 namespace Geno3D
 {

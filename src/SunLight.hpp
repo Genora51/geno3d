@@ -1,7 +1,7 @@
 #pragma once
 
 #include <eigen3/Eigen/Dense>
-#include "Light.h"
+#include "Light.hpp"
 
 namespace Geno3D
 {

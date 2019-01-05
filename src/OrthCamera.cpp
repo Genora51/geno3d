@@ -1,5 +1,5 @@
 #include <cmath>
-#include "OrthCamera.h"
+#include "OrthCamera.hpp"
 
 
 namespace Geno3D

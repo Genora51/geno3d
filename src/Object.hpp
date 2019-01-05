@@ -6,9 +6,9 @@
 #include <vector>
 #include <string>
 #include <memory>
-#include "Light.h"
-#include "Camera.h"
-#include "Transformable.h"
+#include "Light.hpp"
+#include "Camera.hpp"
+#include "Transformable.hpp"
 
 namespace Geno3D
 {

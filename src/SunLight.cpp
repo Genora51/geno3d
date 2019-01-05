@@ -1,5 +1,5 @@
-#include "SunLight.h"
-#include "Transformation.h"
+#include "SunLight.hpp"
+#include "Transformation.hpp"
 
 namespace Geno3D
 {
