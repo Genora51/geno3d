@@ -25,13 +25,16 @@ $(BUILDDIR)/%.o: $(SRCDIR)/%.$(SRCEXT)
 
 clean:
 	@echo "Cleaning..."
-	$(RM) -r $(BUILDDIR) $(TARGETDIR)
+	$(RM) -r docs $(BUILDDIR) $(TARGETDIR)
 
 debug: CXXFLAGS += -DDEBUG -g
 debug: $(TARGETDIR)/$(TARGET)
+
+docs:
+	doxygen Doxyfile
 
 fast: CXXFLAGS += -O2
 fast: $(TARGETDIR)/$(TARGET)
 
 
-.PHONY: clean debug
+.PHONY: clean debug docs fast

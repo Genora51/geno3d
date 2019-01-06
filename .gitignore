@@ -7,3 +7,4 @@ bin/
 
 # Ignore resources loaded in, for now
 res/
+docs/
